@@ -25,13 +25,17 @@ function createTree(element, data) {
     return;
   }
 
+  if (!(element instanceof Element)) {
+    return;
+  }
+
+  if (typeof data !== 'object' || data === null) {
+    return;
+  }
+
   const ul = document.createElement('ul');
 
-  for (const item in data) {
-    if (typeof data !== 'object' || data === null) {
-      return;
-    }
-
+  Object.keys(data).forEach((item) => {
     const li = document.createElement('li');
 
     li.textContent = item;
@@ -43,7 +47,8 @@ function createTree(element, data) {
       li.append(nextUl);
     }
     ul.append(li);
-  }
+  });
+
   element.append(ul);
 }
 
